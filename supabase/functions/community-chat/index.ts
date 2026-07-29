@@ -273,7 +273,11 @@ serve(async (req) => {
     // https://aistudio.google.com/apikey and set it as a Supabase secret:
     //   supabase secrets set GEMINI_API_KEY=your-key-here
     const GEMINI_API_KEY = Deno.env.get("GEMINI_API_KEY");
-    const GEMINI_MODEL = Deno.env.get("GEMINI_MODEL") ?? "gemini-2.5-flash";
+    // "gemini-flash-latest" is Google's alias for the current GA Flash
+    // model, so this keeps working even as Google retires specific
+    // versions (e.g. gemini-2.5-flash was deprecated for new API keys).
+    // Override with a specific version via the GEMINI_MODEL secret if you want to pin one.
+    const GEMINI_MODEL = Deno.env.get("GEMINI_MODEL") ?? "gemini-flash-latest";
 
     if (!GEMINI_API_KEY) {
       throw new Error("GEMINI_API_KEY is not configured");
