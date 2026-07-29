@@ -53,13 +53,36 @@ const Contact = () => {
         return;
       }
 
-      // Send email notification
-      await supabase.functions.invoke("send-form-notification", {
-        body: {
-          formType: "contact",
-          data: validationResult.data,
-        },
+      // Store the message in Supabase so it shows up in the admin dashboard
+      const { name, email, message, consent } = validationResult.data;
+      const { error: insertError } = await supabase.from("contact_messages").insert({
+        name,
+        email,
+        message,
+        consent,
       });
+
+      if (insertError) {
+        toast({
+          title: "Error",
+          description: "Failed to send message. Please try again.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Best-effort email notification - the message is already saved above,
+      // so don't fail the submission if only the email step has trouble.
+      try {
+        await supabase.functions.invoke("send-form-notification", {
+          body: {
+            formType: "contact",
+            data: validationResult.data,
+          },
+        });
+      } catch {
+        // Ignore - message is already stored in contact_messages.
+      }
 
       toast({
         title: "Message Sent!",
@@ -68,7 +91,7 @@ const Contact = () => {
       
       // Reset form
       setFormData({ name: "", email: "", message: "", consent: false });
-    } catch (error: any) {
+    } catch {
       toast({
         title: "Error",
         description: "Failed to send message. Please try again.",
