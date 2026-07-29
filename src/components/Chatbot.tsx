@@ -31,6 +31,14 @@ const Chatbot = () => {
     }
   }, [messages]);
 
+  // Lets other parts of the app (e.g. the FAQ page's support modal) open
+  // this widget programmatically via: window.dispatchEvent(new CustomEvent("open-community-chatbot"))
+  useEffect(() => {
+    const openChat = () => setIsOpen(true);
+    window.addEventListener("open-community-chatbot", openChat);
+    return () => window.removeEventListener("open-community-chatbot", openChat);
+  }, []);
+
   const streamChat = async (userMessages: Message[]) => {
     const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/community-chat`;
 
