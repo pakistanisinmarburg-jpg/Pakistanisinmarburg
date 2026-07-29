@@ -9,6 +9,8 @@ import MediaAdmin from "@/components/admin/MediaAdmin";
 import ContentAdmin from "@/components/admin/ContentAdmin";
 import RegistrationsAdmin from "@/components/admin/RegistrationsAdmin";
 import ContactMessagesAdmin from "@/components/admin/ContactMessagesAdmin";
+import MembersAdmin from "@/components/admin/MembersAdmin";
+import MentorRequestsAdmin from "@/components/admin/MentorRequestsAdmin";
 
 const Admin = () => {
   const { user, isAdmin, loading, signOut } = useAuth();
@@ -64,12 +66,16 @@ const Admin = () => {
             <TabsTrigger value="content">Page text</TabsTrigger>
             <TabsTrigger value="registrations">Registrations</TabsTrigger>
             <TabsTrigger value="messages">Messages</TabsTrigger>
+            <TabsTrigger value="members">Members</TabsTrigger>
+            <TabsTrigger value="mentors">Mentor requests</TabsTrigger>
           </TabsList>
           <TabsContent value="events"><EventsAdmin /></TabsContent>
           <TabsContent value="media"><MediaAdmin /></TabsContent>
           <TabsContent value="content"><ContentAdmin /></TabsContent>
           <TabsContent value="registrations"><RegistrationsAdmin /></TabsContent>
           <TabsContent value="messages"><ContactMessagesAdmin /></TabsContent>
+          <TabsContent value="members"><MembersAdmin /></TabsContent>
+          <TabsContent value="mentors"><MentorRequestsAdmin /></TabsContent>
         </Tabs>
       </main>
     </div>
