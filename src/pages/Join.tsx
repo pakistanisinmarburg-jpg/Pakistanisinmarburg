@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
+import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
@@ -12,6 +13,8 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import heroImage from "@/assets/hero-community.jpg";
 import { useContent } from "@/hooks/useSiteContent";
+import { Reveal } from "@/components/common/Reveal";
+import { glassPanelSolid } from "@/lib/glass";
 
 const memberSchema = z.object({
   firstName: z.string().trim().min(1, "First name is required").max(100, "First name must be less than 100 characters"),
@@ -124,7 +127,7 @@ const Join = () => {
 
         <section className="py-16">
           <div className="container mx-auto px-4">
-            <div className="mx-auto max-w-2xl">
+            <Reveal className="mx-auto max-w-2xl">
               <div className="mb-8 text-center">
                 <h2 className="mb-2 text-3xl font-bold text-foreground">Member Registration</h2>
                 <p className="text-muted-foreground">
@@ -132,7 +135,7 @@ const Join = () => {
                 </p>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-6 rounded-lg border border-border bg-card p-6">
+              <form onSubmit={handleSubmit} className={`space-y-6 rounded-2xl p-6 ${glassPanelSolid}`}>
                 <div className="grid gap-6 md:grid-cols-2">
                   <div className="space-y-2">
                     <Label htmlFor="firstName">First Name *</Label>
@@ -214,11 +217,13 @@ const Join = () => {
                   </Label>
                 </div>
 
-                <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
-                  {isSubmitting ? "Submitting..." : "Register as Member"}
-                </Button>
+                <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.98 }}>
+                  <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
+                    {isSubmitting ? "Submitting..." : "Register as Member"}
+                  </Button>
+                </motion.div>
               </form>
-            </div>
+            </Reveal>
           </div>
         </section>
       </main>

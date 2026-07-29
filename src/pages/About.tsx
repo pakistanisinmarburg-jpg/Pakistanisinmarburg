@@ -1,8 +1,10 @@
 import { Target, Users, Heart, Globe } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
+import { Reveal, RevealItem, RevealStagger } from "@/components/common/Reveal";
+import { glassCard } from "@/lib/glass";
 import heroImage from "@/assets/hero-community.jpg";
 import uniMarburg from "@/assets/logos/uni-marburg-official.png";
 import studentenwerk from "@/assets/logos/studentenwerk-official.png";
@@ -51,7 +53,7 @@ const About = () => {
         {/* Mission Section */}
         <section className="py-16">
           <div className="container mx-auto px-4">
-            <div className="mx-auto max-w-3xl text-center">
+            <Reveal className="mx-auto max-w-3xl text-center">
               <h2 className="mb-6 text-3xl font-bold text-foreground">Our Mission</h2>
               <p className="text-lg leading-relaxed text-muted-foreground mb-6">
                 The Pakistani community in Marburg is dedicated to supporting and connecting Pakistanis living in this beautiful city. We help newcomers navigate essential bureaucratic steps, settle comfortably, and integrate into Marburg's vibrant life—while providing a welcoming network of fellow Pakistanis.
@@ -62,7 +64,7 @@ const About = () => {
               <p className="text-lg leading-relaxed text-muted-foreground">
                 At the same time, we proudly represent Pakistani culture, art, and traditions within Marburg's diverse international landscape, fostering friendship, understanding, and cultural exchange.
               </p>
-            </div>
+            </Reveal>
           </div>
         </section>
 
@@ -74,22 +76,24 @@ const About = () => {
               <p className="text-muted-foreground">What we aim to achieve together</p>
             </div>
 
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <RevealStagger className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
               {objectives.map((objective, index) => {
                 const Icon = objective.icon;
                 return (
-                  <Card key={index}>
-                    <CardHeader>
-                      <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-lg bg-primary/10">
-                        <Icon className="h-7 w-7 text-primary" />
-                      </div>
-                      <CardTitle>{objective.title}</CardTitle>
-                      <CardDescription>{objective.description}</CardDescription>
-                    </CardHeader>
-                  </Card>
+                  <RevealItem key={index}>
+                    <Card className={glassCard}>
+                      <CardHeader>
+                        <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-lg bg-primary/10">
+                          <Icon className="h-7 w-7 text-primary" />
+                        </div>
+                        <CardTitle>{objective.title}</CardTitle>
+                        <CardDescription>{objective.description}</CardDescription>
+                      </CardHeader>
+                    </Card>
+                  </RevealItem>
                 );
               })}
-            </div>
+            </RevealStagger>
           </div>
         </section>
 
@@ -101,32 +105,32 @@ const About = () => {
               <p className="text-muted-foreground">Meet the people making it happen</p>
             </div>
 
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 max-w-5xl mx-auto">
-              <Card>
+            <RevealStagger className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 max-w-5xl mx-auto">
+              <RevealItem><Card className={glassCard}>
                 <CardHeader>
                   <CardTitle className="text-lg">Zoraiz Fazal</CardTitle>
                   <CardDescription>Member</CardDescription>
                 </CardHeader>
-              </Card>
-              <Card>
+              </Card></RevealItem>
+              <RevealItem><Card className={glassCard}>
                 <CardHeader>
                   <CardTitle className="text-lg">TBA</CardTitle>
                   <CardDescription>Coordinator</CardDescription>
                 </CardHeader>
-              </Card>
-              <Card>
+              </Card></RevealItem>
+              <RevealItem><Card className={glassCard}>
                 <CardHeader>
                   <CardTitle className="text-lg">TBA</CardTitle>
                   <CardDescription>Finance</CardDescription>
                 </CardHeader>
-              </Card>
-              <Card>
+              </Card></RevealItem>
+              <RevealItem><Card className={glassCard}>
                 <CardHeader>
                   <CardTitle className="text-lg">TBA</CardTitle>
                   <CardDescription>PR & Social Media</CardDescription>
                 </CardHeader>
-              </Card>
-            </div>
+              </Card></RevealItem>
+            </RevealStagger>
           </div>
         </section>
 
@@ -139,20 +143,20 @@ const About = () => {
             </div>
 
             {/* Partner Logos */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-              <div className="flex items-center justify-center rounded-lg bg-card p-6 shadow-sm">
+            <RevealStagger className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+              <RevealItem className={`flex items-center justify-center rounded-lg p-6 ${glassCard}`}>
                 <img src={stadtMarburg} alt="Stadt Marburg" className="w-full h-auto object-contain" />
-              </div>
-              <div className="flex items-center justify-center rounded-lg bg-card p-6 shadow-sm">
+              </RevealItem>
+              <RevealItem className={`flex items-center justify-center rounded-lg p-6 ${glassCard}`}>
                 <img src={auslanderbeirat} alt="Ausländerbeirat" className="w-full h-auto object-contain" />
-              </div>
-              <div className="flex items-center justify-center rounded-lg bg-card p-6 shadow-sm">
+              </RevealItem>
+              <RevealItem className={`flex items-center justify-center rounded-lg p-6 ${glassCard}`}>
                 <img src={uniMarburg} alt="Philipps University Marburg" className="w-full h-auto object-contain" />
-              </div>
-              <div className="flex items-center justify-center rounded-lg bg-card p-6 shadow-sm">
+              </RevealItem>
+              <RevealItem className={`flex items-center justify-center rounded-lg p-6 ${glassCard}`}>
                 <img src={studentenwerk} alt="Studentenwerk Marburg" className="w-full h-auto object-contain" />
-              </div>
-            </div>
+              </RevealItem>
+            </RevealStagger>
           </div>
         </section>
       </main>

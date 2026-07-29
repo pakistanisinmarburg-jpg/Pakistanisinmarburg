@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
 import { Calendar, Users, GraduationCap, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import { usePublicEvents, renderEventCard } from "@/pages/Events";
 import { useContent } from "@/hooks/useSiteContent";
+import { Reveal, RevealItem, RevealStagger } from "@/components/common/Reveal";
+import { glassCard } from "@/lib/glass";
 
 import marburgOldCity from "@/assets/marburg-oldcity.jpg";
 
@@ -40,8 +42,8 @@ const Index = () => {
         {/* Features Section */}
         <section className="bg-secondary/30 py-16">
           <div className="container mx-auto px-4">
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-              <Card>
+            <RevealStagger className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+              <RevealItem><Card className={glassCard}>
                 <CardHeader>
                   <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
                     <Users className="h-6 w-6 text-primary" />
@@ -51,9 +53,9 @@ const Index = () => {
                     Connect with fellow Pakistanis in Marburg for mutual support and friendship
                   </CardDescription>
                 </CardHeader>
-              </Card>
+              </Card></RevealItem>
 
-              <Card>
+              <RevealItem><Card className={glassCard}>
                 <CardHeader>
                   <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
                     <GraduationCap className="h-6 w-6 text-primary" />
@@ -63,9 +65,9 @@ const Index = () => {
                     Housing help, mentorship, and orientation for Pakistani students at Uni Marburg
                   </CardDescription>
                 </CardHeader>
-              </Card>
+              </Card></RevealItem>
 
-              <Card>
+              <RevealItem><Card className={glassCard}>
                 <CardHeader>
                   <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
                     <Calendar className="h-6 w-6 text-primary" />
@@ -75,9 +77,9 @@ const Index = () => {
                     Celebrate National Day, Eid, cricket tournaments, and cultural evenings together
                   </CardDescription>
                 </CardHeader>
-              </Card>
+              </Card></RevealItem>
 
-              <Card>
+              <RevealItem><Card className={glassCard}>
                 <CardHeader>
                   <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
                     <Heart className="h-6 w-6 text-primary" />
@@ -87,21 +89,21 @@ const Index = () => {
                     Guidance on registration, housing, language courses, and settling in Marburg
                   </CardDescription>
                 </CardHeader>
-              </Card>
-            </div>
+              </Card></RevealItem>
+            </RevealStagger>
           </div>
         </section>
 
         {/* Upcoming Events */}
         <section className="py-16">
           <div className="container mx-auto px-4">
-            <div className="mb-8 text-center">
+            <Reveal className="mb-8 text-center">
               <h2 className="mb-2 text-3xl font-bold text-foreground">{t("home.events.title")}</h2>
               <p className="text-muted-foreground">{t("home.events.subtitle")}</p>
-            </div>
+            </Reveal>
 
             <div className="grid gap-6 md:grid-cols-2">
-              {homeEvents.map(renderEventCard)}
+              {homeEvents.map((event, i) => renderEventCard(event, i))}
             </div>
 
             <div className="mt-8 text-center">

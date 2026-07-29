@@ -17,6 +17,7 @@ import Auth from "./pages/Auth";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 import Chatbot from "./components/Chatbot";
+import GlobalSupportFab from "./components/support/GlobalSupportFab";
 import { AuthProvider } from "./hooks/useAuth";
 import { SiteContentProvider } from "./hooks/useSiteContent";
 
@@ -48,6 +49,7 @@ const App = () => (
                 <Route path="*" element={<NotFound />} />
               </Routes>
               <Chatbot />
+              <GlobalSupportFab />
             </BrowserRouter>
           </TooltipProvider>
         </SiteContentProvider>

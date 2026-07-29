@@ -9,6 +9,8 @@ import psaLogo from "@/assets/logos/psa-marburg.png";
 import psaLogoMain from "@/assets/psa-logo.jpg";
 import { Link } from "react-router-dom";
 import { useContent } from "@/hooks/useSiteContent";
+import { Reveal, RevealItem, RevealStagger } from "@/components/common/Reveal";
+import { glassCard } from "@/lib/glass";
 const Students = () => {
   const t = useContent();
   const services = [{
@@ -47,10 +49,7 @@ const Students = () => {
         {/* Welcome Section */}
         <section className="py-16">
           <div className="container mx-auto px-4">
-            <div className="mx-auto max-w-3xl text-center">
-              <div className="mb-8 flex justify-center">
-                
-              </div>
+            <Reveal className="mx-auto max-w-3xl text-center">
               <h2 className="mb-6 text-3xl font-bold text-foreground">Welcome Pakistani Students!</h2>
               <p className="mb-4 text-lg leading-relaxed text-muted-foreground">
                 Starting university in a new country can be challenging, but you're not alone! The Pakistani 
@@ -61,7 +60,7 @@ const Students = () => {
                 From finding accommodation to connecting with mentors and enjoying campus life, we've got 
                 your back every step of the way.
               </p>
-            </div>
+            </Reveal>
           </div>
         </section>
 
@@ -73,10 +72,10 @@ const Students = () => {
               <p className="text-muted-foreground">Comprehensive support services for Pakistani students</p>
             </div>
 
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <RevealStagger className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {services.map((service, index) => {
               const Icon = service.icon;
-              return <Card key={index}>
+              return <RevealItem key={index}><Card className={glassCard}>
                     <CardHeader>
                       <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
                         <Icon className="h-6 w-6 text-primary" />
@@ -84,9 +83,9 @@ const Students = () => {
                       <CardTitle>{service.title}</CardTitle>
                       <CardDescription>{service.description}</CardDescription>
                     </CardHeader>
-                  </Card>;
+                  </Card></RevealItem>;
             })}
-            </div>
+            </RevealStagger>
           </div>
         </section>
 
@@ -96,8 +95,8 @@ const Students = () => {
             <div className="mx-auto max-w-4xl">
               <h2 className="mb-8 text-center text-3xl font-bold text-foreground">Essential Information for New Students</h2>
               
-              <div className="space-y-6">
-                <Card>
+              <RevealStagger className="space-y-6">
+                <RevealItem><Card className={glassCard}>
                   <CardHeader>
                     <CardTitle>First Steps After Arrival</CardTitle>
                   </CardHeader>
@@ -131,9 +130,9 @@ const Students = () => {
                       </div>
                     </div>
                   </CardContent>
-                </Card>
+                </Card></RevealItem>
 
-                <Card>
+                <RevealItem><Card className={glassCard}>
                   <CardHeader>
                     <CardTitle>University Resources</CardTitle>
                   </CardHeader>
@@ -155,9 +154,9 @@ const Students = () => {
                       <span className="text-sm text-primary">studienberatung@uni-marburg.de</span>
                     </div>
                   </CardContent>
-                </Card>
+                </Card></RevealItem>
 
-                <Card>
+                <RevealItem><Card className={glassCard}>
                   <CardHeader>
                     <CardTitle>Language Support</CardTitle>
                   </CardHeader>
@@ -167,8 +166,8 @@ const Students = () => {
                       English is widely spoken on campus, but German skills help with daily life and integration.
                     </p>
                   </CardContent>
-                </Card>
-              </div>
+                </Card></RevealItem>
+              </RevealStagger>
             </div>
           </div>
         </section>

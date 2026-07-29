@@ -2,6 +2,7 @@ import { useState } from "react";
 import { z } from "zod";
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, MessageSquare } from "lucide-react";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -15,6 +16,8 @@ import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import heroImage from "@/assets/hero-community.jpg";
 import { useContent } from "@/hooks/useSiteContent";
+import { Reveal, RevealItem, RevealStagger } from "@/components/common/Reveal";
+import { glassCard } from "@/lib/glass";
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100, "Name must be less than 100 characters"),
@@ -89,8 +92,8 @@ const Contact = () => {
           <div className="container mx-auto px-4">
             <div className="grid gap-8 lg:grid-cols-3">
               {/* Contact Info */}
-              <div className="space-y-6">
-                <Card>
+              <RevealStagger className="space-y-6">
+                <RevealItem><Card className={glassCard}>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <Mail className="h-5 w-5 text-primary" />
@@ -101,9 +104,9 @@ const Contact = () => {
                     <p className="text-sm text-muted-foreground">pakistanisinmarburg@gmail.com</p>
                     <p className="mt-2 text-sm text-muted-foreground">We typically respond within 24-48 hours</p>
                   </CardContent>
-                </Card>
+                </Card></RevealItem>
 
-                <Card>
+                <RevealItem><Card className={glassCard}>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <Phone className="h-5 w-5 text-primary" />
@@ -114,9 +117,9 @@ const Contact = () => {
                     <p className="text-sm text-muted-foreground">+49 152 16164830</p>
                     <p className="mt-2 text-sm text-muted-foreground">Monday - Friday, 10:00 - 18:00</p>
                   </CardContent>
-                </Card>
+                </Card></RevealItem>
 
-                <Card>
+                <RevealItem><Card className={glassCard}>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <MapPin className="h-5 w-5 text-primary" />
@@ -127,9 +130,9 @@ const Contact = () => {
                     <p className="text-sm text-muted-foreground">Bahnhofstrasse 36, 35037 Marburg</p>
                     <p className="mt-2 text-sm text-muted-foreground">Community events held at various venues</p>
                   </CardContent>
-                </Card>
+                </Card></RevealItem>
 
-                <Card>
+                <RevealItem><Card className={glassCard}>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <MessageSquare className="h-5 w-5 text-primary" />
@@ -139,12 +142,12 @@ const Contact = () => {
                   <CardContent>
                     <p className="text-sm text-muted-foreground">For urgent assistance, please call our emergency hotline or contact your assigned mentor.</p>
                   </CardContent>
-                </Card>
-              </div>
+                </Card></RevealItem>
+              </RevealStagger>
 
               {/* Contact Form */}
-              <div className="lg:col-span-2">
-                <Card>
+              <Reveal className="lg:col-span-2" delay={0.1}>
+                <Card className={glassCard}>
                   <CardHeader>
                     <CardTitle>Send Us a Message</CardTitle>
                     <CardDescription>
@@ -209,9 +212,11 @@ const Contact = () => {
                         </div>
                       </div>
 
-                      <Button type="submit" className="w-full" size="lg">
-                        Send Message
-                      </Button>
+                      <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.98 }}>
+                        <Button type="submit" className="w-full" size="lg">
+                          Send Message
+                        </Button>
+                      </motion.div>
 
                       <p className="text-xs text-center text-muted-foreground">
                         By submitting this form, you agree to our privacy policy and terms of service.
@@ -219,7 +224,7 @@ const Contact = () => {
                     </form>
                   </CardContent>
                 </Card>
-              </div>
+              </Reveal>
             </div>
           </div>
         </section>

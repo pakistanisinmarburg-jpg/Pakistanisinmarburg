@@ -1,4 +1,4 @@
-import { Calendar, MapPin, Users, PartyPopper } from "lucide-react";
+import { Calendar, MapPin, Users, PartyPopper, Heart } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -8,8 +8,13 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { useBookmarks } from "@/hooks/useBookmarks";
+import { highlightText } from "@/lib/highlightText";
+import { glassCard } from "@/lib/glass";
+import { cn } from "@/lib/utils";
 import { z } from "zod";
 
 const registrationSchema = z.object({
@@ -35,6 +40,8 @@ interface EventCardProps {
   webhookType?: string;
   registrationOffset?: number;
   posterImage?: string;
+  searchQuery?: string;
+  index?: number;
 }
 
 const EventCard = ({
@@ -50,11 +57,15 @@ const EventCard = ({
   webhookType,
   registrationOffset = 0,
   posterImage,
+  searchQuery = "",
+  index = 0,
 }: EventCardProps) => {
   const [open, setOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [registrationCount, setRegistrationCount] = useState(0);
   const { toast } = useToast();
+  const { isSaved, toggle: toggleSaved } = useBookmarks("events");
+  const saved = isSaved(id);
   const [form, setForm] = useState({
     fullName: "",
     email: "",
@@ -145,15 +156,33 @@ const EventCard = ({
   };
 
   return (
-    <Card className="group overflow-hidden transition-all hover:shadow-lg border-t-4" style={{ borderTopColor: color }}>
-      <div className="h-2" style={{ background: `linear-gradient(90deg, ${color}, ${color}88)` }} />
-      <CardHeader>
-        <div className="flex items-center justify-between">
-          <CardTitle className="line-clamp-2 text-xl">{title}</CardTitle>
-          {featured && <Badge className="ml-2 shrink-0" style={{ backgroundColor: color, color: "#fff" }}>Featured</Badge>}
-        </div>
-        <CardDescription className="line-clamp-2">{description}</CardDescription>
-      </CardHeader>
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.4, delay: Math.min(index, 12) * 0.05, ease: [0.4, 0, 0.2, 1] }}
+    >
+      <Card className={cn("group overflow-hidden border-t-4", glassCard)} style={{ borderTopColor: color }}>
+        <div className="h-2" style={{ background: `linear-gradient(90deg, ${color}, ${color}88)` }} />
+        <CardHeader>
+          <div className="flex items-start justify-between gap-2">
+            <CardTitle className="line-clamp-2 text-xl">{highlightText(title, searchQuery)}</CardTitle>
+            <div className="flex shrink-0 items-center gap-1">
+              {featured && <Badge style={{ backgroundColor: color, color: "#fff" }}>Featured</Badge>}
+              <motion.button
+                type="button"
+                whileTap={{ scale: 0.8 }}
+                onClick={() => toggleSaved(id)}
+                aria-pressed={saved}
+                aria-label={saved ? "Remove from saved events" : "Save this event"}
+                className="rounded-full p-1.5 text-muted-foreground transition-colors hover:bg-accent/20 hover:text-accent-foreground"
+              >
+                <Heart className={cn("h-4 w-4 transition-colors", saved && "fill-destructive text-destructive")} />
+              </motion.button>
+            </div>
+          </div>
+          <CardDescription className="line-clamp-2">{highlightText(description, searchQuery)}</CardDescription>
+        </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-2 text-sm">
           <div className="flex items-center gap-2 text-muted-foreground">
@@ -236,7 +265,8 @@ const EventCard = ({
           </DialogContent>
         </Dialog>
       </CardContent>
-    </Card>
+      </Card>
+    </motion.div>
   );
 };
 

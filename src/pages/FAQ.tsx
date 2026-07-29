@@ -10,7 +10,7 @@ import { useFaqPreferences } from "@/hooks/useFaqPreferences";
 import FaqSearchBar from "@/components/faq/FaqSearchBar";
 import FaqCategoryChips, { ALL_FILTER, BOOKMARKED_FILTER } from "@/components/faq/FaqCategoryChips";
 import FaqCard from "@/components/faq/FaqCard";
-import FaqSupportModal from "@/components/faq/FaqSupportModal";
+import SupportModal from "@/components/support/SupportModal";
 
 const questionId = (categoryId: string, index: number) => `${categoryId}::${index}`;
 
@@ -208,7 +208,7 @@ const FAQ = () => {
                 The Pakistanis in Marburg community is happy to help with anything not covered here.
               </p>
               <div className="mt-2">
-                <FaqSupportModal />
+                <SupportModal />
               </div>
             </div>
           </div>
