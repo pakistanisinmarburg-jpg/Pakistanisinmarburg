@@ -5,7 +5,7 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 const ALLOWED_ORIGINS = [
   "https://pakistanisinmarburg.com",
   "https://www.pakistanisinmarburg.com",
-  "https://YOUR-VERCEL-PROJECT.vercel.app",
+  "https://pakistanisinmarburg.vercel.app",
   "http://localhost:8080",
   "http://localhost:5173",
 ];
