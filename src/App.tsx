@@ -9,6 +9,7 @@ import About from "./pages/About";
 import Students from "./pages/Students";
 import Events from "./pages/Events";
 import Gallery from "./pages/Gallery";
+import FAQ from "./pages/FAQ";
 import Contact from "./pages/Contact";
 import Join from "./pages/Join";
 import MentorRequest from "./pages/MentorRequest";
@@ -36,6 +37,7 @@ const App = () => (
                 <Route path="/students" element={<Students />} />
                 <Route path="/events" element={<Events />} />
                 <Route path="/gallery" element={<Gallery />} />
+                <Route path="/faq" element={<FAQ />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/join" element={<Join />} />
                 <Route path="/mentor-request" element={<MentorRequest />} />
